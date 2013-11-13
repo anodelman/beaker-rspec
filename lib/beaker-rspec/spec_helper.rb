@@ -1,7 +1,5 @@
-require 'beaker-rspec'
-require 'helpers'
-
-include BeakerRSpec
+require 'beaker-rspec/beaker_shim'
+include BeakerRSpec::BeakerShim
 
 RSpec.configure do |c|
   # Enable color
@@ -9,9 +7,6 @@ RSpec.configure do |c|
 
   # Define persistant hosts setting
   c.add_setting :hosts
-
-  # System specific config
-  c.extend BeakerRSpec::Helpers #to allow dsl access outside tests
 
   # Defined target nodeset
   nodeset = ENV['RSPEC_SET'] || 'sample.cfg'

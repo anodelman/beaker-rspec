@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'beaker-rspec'
 
 describe "ignore" do
 
