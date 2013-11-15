@@ -6,15 +6,16 @@ RSpec.configure do |c|
   c.tty = true
 
   # Define persistant hosts setting
-  c.add_setting :hosts
+  c.add_setting :hosts, :default => []
 
   # Defined target nodeset
-  nodeset = ENV['RSPEC_SET'] || 'sample.cfg'
-  preserve = ENV['RSPEC_DESTROY'] ? '--preserve-hosts' : ''
+  nodeset     = ENV['RSPEC_SET'] || 'default'
+  nodesetfile = ENV['RSPEC_SETFILE'] || File.join('spec/acceptance/nodesets',"#{nodeset}.yml")
+  preserve    = ENV['RSPEC_DESTROY'] ? '--preserve-hosts' : ''
   fresh_nodes = ENV['RSPEC_PROVISION'] ? '' : '--no-provision'
 
   # Configure all nodes in nodeset
-  c.setup([preserve, fresh_nodes, '--type','git','--hosts', nodeset])
+  c.setup([preserve,'--type','git','--hosts',nodesetfile])
   c.provision
   c.validate
 
